@@ -1,7 +1,9 @@
 package com.gustavovbs.broker;
 
+import com.gustavovbs.microservicesoffloading.Auction;
 import com.gustavovbs.microservicesoffloading.MicroservicesOffloadingController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,10 +20,14 @@ public class BrokerController extends MicroservicesOffloadingController {
         broker = new Broker();
     }
 
-    @GetMapping("/run")
-    public String run_microservice(HttpServletResponse httpResponse)
-    {
-        return broker.run();
+    @GetMapping("/")
+    public String runMicroservice(){
+        return "Broker is running";
+    }
+
+    @PostMapping("/broadcast")
+    public String broadcast(Auction auction){
+        return broker.broadcast(auction);
     }
 
 }

@@ -14,20 +14,20 @@ public class MicroservicesOffloadingController {
         super();
     }
 
+    @GetMapping("/")
+    public String root(){
+        return "Bem vindo. Digite o caminho /run/{service_name} para iniciar um serviço.";
+    }
+
+
     @GetMapping("/run/{service}")
-    public String run_microservice(@PathVariable("service") String service, HttpServletResponse httpResponse)
+    public String runMicroservice(@PathVariable("service") String service, HttpServletResponse httpResponse)
     {
 
-        try { httpResponse.sendRedirect("/" + service + "/run"); }
+        try { httpResponse.sendRedirect("/" + service); }
         catch (Exception e) { return e.toString(); }
 
         return "ok";
-    }
-
-    @GetMapping("/close")
-    public String instance_closing() {
-
-        return "Changed to" + " (nome da instância nova)";
     }
 
 }

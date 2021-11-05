@@ -1,18 +1,31 @@
 package com.gustavovbs.broker;
 
-import com.gustavovbs.microservicesoffloading.Microservice;
-import com.gustavovbs.microservicesoffloading.MicroservicesOffloadingController;
+import com.gustavovbs.microservicesoffloading.Auction;
+import com.gustavovbs.microservicesoffloading.Bid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
-public class Broker extends Microservice {
+import java.net.URI;
+import java.util.ArrayList;
 
-    @Override
-    public String run() {
+public class Broker {
 
-        return "broker ta rodante";
+    ArrayList<URI> hosts;
+
+    public Broker(){
+        hosts = new ArrayList<>();
     }
 
-    @Override
-    public void close() {
-        super.close();
+    public String broadcast(Auction auction){
+        RestTemplate rest = new RestTemplate();
+        for (URI host : hosts){
+            //TODO: Check if it is not who started the bid
+            ResponseEntity<Bid> response = rest.postForEntity(host + "/bid", auction, Bid.class);
+            auction.bid(response.getBody());
+        }
+
+        //After the auction has ended
+        URI winner = auction.close().getHost();
+        return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
     }
 }
