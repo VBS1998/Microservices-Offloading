@@ -6,21 +6,23 @@ import com.gustavovbs.microservicesoffloading.MicroservicesOffloadingController;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
 @RestController
 @RequestMapping("/host")
-public class HostController extends MicroservicesOffloadingController {
+public class HostController {
 
-    URI path;
     Host host;
 
-    public HostController(){
-        super();
+    @GetMapping("/")
+    public String runHost(HttpServletResponse response){
         try {
-            host = new Host(new URI("")); //Broker URI
-            path = new URI(""); //Self URI
-        } catch (Exception e){}
+            host = new Host(new URI("http://127.0.0.1:8080"), new URI("http://127.0.0.1:8081"));
+        } catch (Exception e){
+            return e.toString();
+        }
+        return "Host running.";
     }
 
     @GetMapping("/run")
@@ -31,8 +33,7 @@ public class HostController extends MicroservicesOffloadingController {
 
     @PostMapping("/bid")
     public Bid bid(Auction auction){
-        //TODO: Use Host class
-        return new Bid(path);
+        return host.bid(auction);
     }
 
     @GetMapping("/broadcast/{microserviceName}")

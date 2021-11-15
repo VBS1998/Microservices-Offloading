@@ -1,13 +1,18 @@
 package com.gustavovbs.microservicesoffloading;
 
+import java.net.URI;
+
 public class Auction {
 
     String microserviceName;
 
+    URI host;
+
     private Bid winner;
 
-    public Auction(String microserviceName){
+    public Auction(String microserviceName, URI host){
         this.microserviceName = microserviceName;
+        this.host = host;
     }
 
     public void bid(Bid bid){
@@ -22,5 +27,9 @@ public class Auction {
 
     public String getMicroserviceName(){
         return microserviceName;
+    }
+
+    public URI getHost(){
+        return host;
     }
 }

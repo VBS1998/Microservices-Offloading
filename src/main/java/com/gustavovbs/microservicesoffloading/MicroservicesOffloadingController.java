@@ -24,7 +24,7 @@ public class MicroservicesOffloadingController {
     public String runMicroservice(@PathVariable("service") String service, HttpServletResponse httpResponse)
     {
 
-        try { httpResponse.sendRedirect("/" + service); }
+        try { httpResponse.sendRedirect("/" + service + "/"); }
         catch (Exception e) { return e.toString(); }
 
         return "ok";
