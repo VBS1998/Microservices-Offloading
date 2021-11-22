@@ -32,7 +32,7 @@ public class HostController {
     }
 
     @PostMapping("/bid")
-    @ResponseBody public Bid bid(@RequestBody Auction auction){
+    public Bid bid(@RequestBody Auction auction){
         return host.bid(auction);
     }
 

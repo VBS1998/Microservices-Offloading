@@ -1,9 +1,12 @@
 package com.gustavovbs.microservicesoffloading;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.net.URI;
 
 public class Bid {
 
+    @JsonProperty("host")
     private URI host;
 
     public Bid(URI host){
