@@ -25,7 +25,7 @@ public class HostController {
         return "Host running.";
     }
 
-    @GetMapping("/run")
+    @PostMapping("/run")
     public String runMicroservice(String microservice){
         //Run given microservice
         return host.run(microservice);
