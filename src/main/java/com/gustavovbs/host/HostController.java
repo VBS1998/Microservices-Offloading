@@ -25,13 +25,13 @@ public class HostController {
         return "Host running.";
     }
 
-    @GetMapping("/run")
-    public String runMicroservice(String microservice){
+    @PostMapping("/run")
+    public String runMicroservice(@RequestBody String microservice){
         //Run given microservice
         return host.run(microservice);
     }
 
-    @PostMapping("/bid")
+    @PostMapping(value = "/bid")
     public Bid bid(@RequestBody Auction auction){
         return host.bid(auction);
     }

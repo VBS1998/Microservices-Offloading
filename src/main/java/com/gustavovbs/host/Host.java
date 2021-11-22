@@ -20,7 +20,7 @@ public class Host {
 
     public String run(String microserviceName) {
 
-        return microserviceName + "is running on node bla";
+        return microserviceName + " is running on node bla";
     }
 
     public String broadcast(String microserviceName){
