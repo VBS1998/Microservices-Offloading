@@ -31,7 +31,7 @@ public class HostController {
         return host.run(microservice);
     }
 
-    @PostMapping("/bid")
+    @PostMapping(value = "/bid")
     public Bid bid(@RequestBody Auction auction){
         return host.bid(auction);
     }
