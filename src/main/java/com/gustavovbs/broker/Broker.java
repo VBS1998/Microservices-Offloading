@@ -23,6 +23,7 @@ public class Broker {
         RestTemplate rest = new RestTemplate();
         for (URI host : hosts){
             if(host.compareTo(auction.getHost()) == 0){ //The auction host should not make a bid
+                //TODO: Treat timeout, Paralelizar?
                 ResponseEntity<Bid> response = rest.postForEntity(host + "/bid", auction, Bid.class);
                 auction.bid(response.getBody());
             }

@@ -18,7 +18,7 @@ public class HostController {
     @GetMapping("/")
     public String runHost(HttpServletResponse response){
         try {
-            host = new Host(new URI("http://127.0.0.1:8080"), new URI("http://127.0.0.1:8081"));
+            host = new Host(new URI("http://127.0.0.1:8080/host"), new URI("http://ec2-34-227-162-243.compute-1.amazonaws.com:8080/broker"));
         } catch (Exception e){
             return e.toString();
         }
