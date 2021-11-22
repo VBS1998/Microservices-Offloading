@@ -20,7 +20,7 @@ public class BrokerController {
     public String runMicroservice(HttpServletResponse request){
         //request.get
         try {
-            URI url = new URI("http://127.0.0.1:8080");
+            URI url = new URI("http://ec2-54-242-237-17.compute-1.amazonaws.com:8080/broker");
             broker = new Broker(url);
         }catch (Exception e){
             return e.toString();
