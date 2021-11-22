@@ -6,6 +6,8 @@ public class Bid {
 
     private URI host;
 
+    public Bid(){}
+
     public Bid(URI host){
         this.host = host;
     }
