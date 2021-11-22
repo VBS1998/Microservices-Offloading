@@ -31,7 +31,7 @@ public class Broker {
 
         //After the auction has ended
         URI winner = auction.close().getHost();
-        return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
+        return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody() + auction.toString() + winner.toString();
     }
 
     public void addHost(URI host){
