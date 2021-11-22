@@ -31,7 +31,7 @@ public class BrokerController {
     }
 
     @PostMapping("/add_host")
-    public String addHost(URI host) {
+    public String addHost(@RequestBody URI host) {
         broker.addHost(host);
         return "ok " + host.toString();
     }
