@@ -40,7 +40,7 @@ public class Broker {
 
                 try {
                     //Uses the bid in the auction
-                    auction.bid(handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS));
+                    auction.bid(rest.postForEntity(host + "/bid", auction, Bid.class).getBody());
                 } catch (Exception e) {
                     System.out.println(e);
                     handler.cancel(true);
