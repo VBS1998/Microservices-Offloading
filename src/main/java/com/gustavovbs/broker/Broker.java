@@ -42,7 +42,7 @@ public class Broker {
                     //Uses the bid in the auction
                     auction.bid(rest.postForEntity(host + "/bid", auction, Bid.class).getBody());
                 } catch (Exception e) {
-                    System.out.println(e);
+                    System.out.println("tempo");
                     handler.cancel(true);
                 }
 
@@ -50,6 +50,7 @@ public class Broker {
             }
         }
 
+        System.out.println(auction.toString());
         //After the auction has ended
         URI winner = auction.close().getHost();
         return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
