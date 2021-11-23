@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.concurrent.*;
 
 public class Broker {
 
@@ -23,9 +25,32 @@ public class Broker {
         RestTemplate rest = new RestTemplate();
         for (URI host : hosts){
             if(host.compareTo(auction.getHost()) == 0){ //The auction host should not make a bid
-                //TODO: Treat timeout, Paralelizar?
-                ResponseEntity<Bid> response = rest.postForEntity(host + "/bid", auction, Bid.class);
-                auction.bid(response.getBody());
+
+                //Set timeout for 2 seconds
+                final Duration timeout = Duration.ofSeconds(2);
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+
+                final Future<String> handler = executor.submit(new Callable() {
+                    @Override
+                    public String call() throws Exception {
+
+                        // Posts for the host to get a bid
+                        ResponseEntity<Bid> response = rest.postForEntity(host + "/bid", auction, Bid.class);
+                        auction.bid(response.getBody());
+                        return "bid received";
+                    }
+                });
+
+                try {
+                    handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
+                } catch (Exception e) {
+                    handler.cancel(true);
+                }
+
+                executor.shutdownNow();
+
+//                ResponseEntity<Bid> response = rest.postForEntity(host + "/bid", auction, Bid.class);
+//                auction.bid(response.getBody());
             }
         }
 
