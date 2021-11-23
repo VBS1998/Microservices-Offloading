@@ -30,27 +30,22 @@ public class Broker {
                 final Duration timeout = Duration.ofSeconds(2);
                 ExecutorService executor = Executors.newSingleThreadExecutor();
 
-                final Future<String> handler = executor.submit(new Callable() {
+                final Future<Bid> handler = executor.submit(new Callable() {
                     @Override
-                    public String call() throws Exception {
-
+                    public Bid call() throws Exception {
                         // Posts for the host to get a bid
-                        ResponseEntity<Bid> response = rest.postForEntity(host + "/bid", auction, Bid.class);
-                        auction.bid(response.getBody());
-                        return "bid received";
+                        return rest.postForEntity(host + "/bid", auction, Bid.class).getBody();
                     }
                 });
 
                 try {
-                    handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
+                    //Uses the bid in the auction
+                    auction.bid(handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS));
                 } catch (Exception e) {
                     handler.cancel(true);
                 }
 
                 executor.shutdownNow();
-
-//                ResponseEntity<Bid> response = rest.postForEntity(host + "/bid", auction, Bid.class);
-//                auction.bid(response.getBody());
             }
         }
 
