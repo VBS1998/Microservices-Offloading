@@ -42,6 +42,7 @@ public class Broker {
                     //Uses the bid in the auction
                     auction.bid(handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS));
                 } catch (Exception e) {
+                    System.out.println(e);
                     handler.cancel(true);
                 }
 
