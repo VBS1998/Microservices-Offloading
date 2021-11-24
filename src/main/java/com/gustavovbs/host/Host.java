@@ -21,14 +21,13 @@ public class Host {
     public String run(String microserviceName) {
         URI serviceURL = null;
         try{
-            serviceURL = new URI(url.getPath().substring(0, url.getPath().lastIndexOf('/')));
+            serviceURL = new URI(url.toString().substring(0, url.toString().lastIndexOf('/')));
         } catch(Exception e){
             return "Failed at finding URL";
         }
 
-        //System.out.println("\n\n\n\nURLL: " + serviceURL.toString());
         // Runs the microservice and returns its message (xxx is running) together with the url for his host
-        return /*new RestTemplate().getForEntity(serviceURL + "/run/" + microserviceName + "/", String.class)*/ serviceURL.toString() + " on host " + url;
+        return new RestTemplate().getForEntity(serviceURL + "/run/" + microserviceName + "/", String.class) + " on host " + url;
     }
 
     public String broadcast(String microserviceName){
