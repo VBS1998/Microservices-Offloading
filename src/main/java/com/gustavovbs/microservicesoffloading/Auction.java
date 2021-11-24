@@ -21,7 +21,7 @@ public class Auction {
         this.host = host;
 
         try {
-            weights = new ObjectMapper().readValue(new File("weights.json"), HashMap.class);
+            weights = new ObjectMapper().readValue(new File(getClass().getResource("weights.json").getPath()), HashMap.class);
         } catch (Exception e){
             weights = new HashMap<>();
             System.out.println(e);
