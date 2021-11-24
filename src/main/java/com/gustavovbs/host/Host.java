@@ -19,8 +19,14 @@ public class Host {
     }
 
     public String run(String microserviceName) {
-
-        return microserviceName + " is running on node bla";
+        URI serviceURL = null;
+        try{
+            serviceURL = new URI(url.getPath().substring(0, url.getPath().lastIndexOf('/')));
+        } catch(Exception e){
+            return "Failed at finding URL";
+        }
+        // Runs the microservice and returns its message (xxx is running) together with the url for his host
+        return new RestTemplate().getForEntity(serviceURL + "/" + microserviceName, String.class) + " on host " + url;
     }
 
     public String broadcast(String microserviceName){
