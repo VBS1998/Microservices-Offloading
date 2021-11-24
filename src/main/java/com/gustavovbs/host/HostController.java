@@ -19,6 +19,7 @@ public class HostController {
 
             URI ipCheck = new URI("http://checkip.amazonaws.com");
             String ipv4 = new RestTemplate().getForEntity(ipCheck, String.class).getBody();
+            ipv4 = ipv4.substring(0, ipv4.length() - 1); // Drops last blank character
             URI hostURL = new URI("http://"+ipv4+":8080/host");
 
             host = new Host(hostURL, new URI("http://ec2-54-242-237-17.compute-1.amazonaws.com:8080/broker"));
