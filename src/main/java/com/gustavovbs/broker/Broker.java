@@ -2,7 +2,6 @@ package com.gustavovbs.broker;
 
 import com.gustavovbs.microservicesoffloading.Auction;
 import com.gustavovbs.microservicesoffloading.Bid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;

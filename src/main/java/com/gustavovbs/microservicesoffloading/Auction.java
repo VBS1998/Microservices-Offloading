@@ -27,7 +27,6 @@ public class Auction {
             weights.put("cpu", 0.1f);
         } catch (Exception e){
             weights = new HashMap<>();
-            System.out.println(e);
         }
     }
 
@@ -42,7 +41,7 @@ public class Auction {
         for(String key : weights.keySet()){
             value += weights.get(key) * bid.getStat(key);
         }
-        System.out.println("value: " + value);
+
         return value;
     }
 
