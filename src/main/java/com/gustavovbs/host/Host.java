@@ -25,8 +25,10 @@ public class Host {
         } catch(Exception e){
             return "Failed at finding URL";
         }
+
+        System.out.println(serviceURL.getPath());
         // Runs the microservice and returns its message (xxx is running) together with the url for his host
-        return new RestTemplate().getForEntity(serviceURL + "/" + microserviceName, String.class) + " on host " + url;
+        return new RestTemplate().getForEntity(serviceURL + "/run/" + microserviceName + "/", String.class) + " on host " + url;
     }
 
     public String broadcast(String microserviceName){
