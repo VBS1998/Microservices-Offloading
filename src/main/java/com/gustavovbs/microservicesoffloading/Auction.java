@@ -22,9 +22,9 @@ public class Auction {
         this.winner = null;
 
         try {
-            //weights = new ObjectMapper().readValue(new File(getClass().getResource("weights.json").getPath()), HashMap.class);
-            weights = new HashMap<>();
-            weights.put("cpu", 0.1f);
+            String directory = new File("./").getAbsolutePath();
+            weights = new ObjectMapper().readValue(new File(directory.substring(0, directory.length() - 1) + "src/main/java/com/gustavovbs/microservicesoffloading/weights.json"), HashMap.class);
+
         } catch (Exception e){
             weights = new HashMap<>();
         }
