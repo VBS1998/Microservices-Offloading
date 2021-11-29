@@ -23,7 +23,7 @@ public class Broker {
     public String broadcast(Auction auction){
         RestTemplate rest = new RestTemplate();
         for (URI host : hosts){
-            if(host.compareTo(auction.getHost()) == 0){ //The auction host should not make a bid
+            if(host.compareTo(auction.getHost()) != 0){ //The auction host should not make a bid
 
                 //Set timeout for 2 seconds
                 final Duration timeout = Duration.ofSeconds(2);
