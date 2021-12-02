@@ -15,8 +15,8 @@ public class Auction {
 
     private Bid winner;
 
-    private HashMap<String, Float> weights;
-    private HashMap<String, ArrayList<Float>> min_max;
+    private HashMap<String, Double> weights;
+    private HashMap<String, ArrayList<Double>> min_max;
 
 
     public Auction(String microserviceName, URI host){
@@ -38,7 +38,7 @@ public class Auction {
     }
 
     public void bid(Bid bid){
-        float bidValue = valueForBid(bid);
+        double bidValue = valueForBid(bid);
         if (winner == null || bidValue > valueForBid(winner)){
             if(bidValue >= 0.6){
                 winner = bid;
@@ -46,11 +46,11 @@ public class Auction {
         }
     }
 
-    private float valueForBid(Bid bid){
-        float value = 0;
+    private double valueForBid(Bid bid){
+        double value = 0;
         for(String key : weights.keySet()){
-            float min = min_max.get(key).get(0);
-            float max = min_max.get(key).get(1);
+            double min = min_max.get(key).get(0);
+            double max = min_max.get(key).get(1);
 
             value += weights.get(key) * (bid.getStat(key) - min)/(max - min);
         }

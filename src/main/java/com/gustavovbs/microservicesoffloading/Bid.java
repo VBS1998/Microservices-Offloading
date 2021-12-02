@@ -10,7 +10,7 @@ public class Bid {
 
     private URI host;
 
-    private HashMap<String, Float> stats;
+    private HashMap<String, Double> stats;
 
     public Bid(){}
 
@@ -27,8 +27,8 @@ public class Bid {
         }
     }
 
-    public float getStat(String key){
-        return (stats.keySet().contains(key)) ? stats.get(key) : 0.0f;
+    public double getStat(String key){
+        return (stats.keySet().contains(key)) ? stats.get(key) : 0.0;
     }
 
     public URI getHost() {
