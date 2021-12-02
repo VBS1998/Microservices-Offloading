@@ -46,7 +46,10 @@ public class Broker {
 
 //                executor.shutdownNow();
 
-                auction.bid(rest.postForEntity(host + "/bid", auction, Bid.class).getBody());
+                Bid bid = rest.postForEntity(host + "/bid", auction, Bid.class).getBody();
+                if(bid != null){
+                    auction.bid(bid);
+                }
             }
         }
         //After the auction has ended
