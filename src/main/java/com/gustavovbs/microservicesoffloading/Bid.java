@@ -3,10 +3,11 @@ package com.gustavovbs.microservicesoffloading;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.Serializable;
 import java.net.URI;
 import java.util.HashMap;
 
-public class Bid {
+public class Bid implements Serializable {
 
     private URI host;
 
@@ -34,4 +35,17 @@ public class Bid {
     public URI getHost() {
         return host;
     }
+
+    public void setHost(URI host) {
+        this.host = host;
+    }
+
+    public HashMap<String, Double> getStats() {
+        return stats;
+    }
+
+    public void setStats(HashMap<String, Double> stats) {
+        this.stats = stats;
+    }
+
 }
