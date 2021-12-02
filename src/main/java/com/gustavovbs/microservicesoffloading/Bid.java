@@ -1,5 +1,8 @@
 package com.gustavovbs.microservicesoffloading;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
 import java.net.URI;
 import java.util.HashMap;
 
@@ -14,9 +17,14 @@ public class Bid {
     public Bid(URI host){
         this.host = host;
 
-        //TODO: Initialize stats
-        stats = new HashMap<>();
-        stats.put("cpu", 10.0f);
+        // Initialize stats
+        try {
+            String directory = new File("./").getAbsolutePath();
+            stats = new ObjectMapper().readValue(new File(directory.substring(0, directory.length() - 1) + "src/main/java/com/gustavovbs/microservicesoffloading/stats.json"), HashMap.class);
+
+        } catch (Exception e){
+            stats = new HashMap<>();
+        }
     }
 
     public float getStat(String key){

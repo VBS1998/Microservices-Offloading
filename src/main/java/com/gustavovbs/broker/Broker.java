@@ -48,8 +48,15 @@ public class Broker {
             }
         }
         //After the auction has ended
-        URI winner = auction.close().getHost();
-        return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
+        Bid winnerBid = auction.close();
+
+        if(winnerBid != null) {
+            URI winner = winnerBid.getHost();
+            return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
+        }
+        else{
+            return "Auction for " + auction.getMicroserviceName() + " failed.";
+        }
     }
 
     public void addHost(URI host){

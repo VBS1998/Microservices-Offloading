@@ -2,6 +2,7 @@ package com.gustavovbs.microservicesoffloading;
 
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,8 @@ public class Auction {
     private Bid winner;
 
     private HashMap<String, Float> weights;
+    private HashMap<String, ArrayList<Float>> min_max;
+
 
     public Auction(String microserviceName, URI host){
         this.microserviceName = microserviceName;
@@ -23,7 +26,11 @@ public class Auction {
 
         try {
             String directory = new File("./").getAbsolutePath();
-            weights = new ObjectMapper().readValue(new File(directory.substring(0, directory.length() - 1) + "src/main/java/com/gustavovbs/microservicesoffloading/weights.json"), HashMap.class);
+            HashMap<String, Object> file;
+            file = new ObjectMapper().readValue(new File(directory.substring(0, directory.length() - 1) + "src/main/java/com/gustavovbs/microservicesoffloading/weights.json"), HashMap.class);
+
+            weights = (HashMap) file.get("rooter");
+            min_max = (HashMap) file.get("min-max");
 
         } catch (Exception e){
             weights = new HashMap<>();
@@ -31,15 +38,21 @@ public class Auction {
     }
 
     public void bid(Bid bid){
-        if (winner == null || valueForBid(bid) > valueForBid(winner)){
-            winner = bid;
+        float bidValue = valueForBid(bid);
+        if (winner == null || bidValue > valueForBid(winner)){
+            if(bidValue >= 0.6){
+                winner = bid;
+            }
         }
     }
 
     private float valueForBid(Bid bid){
         float value = 0;
         for(String key : weights.keySet()){
-            value += weights.get(key) * bid.getStat(key);
+            float min = min_max.get(key).get(0);
+            float max = min_max.get(key).get(1);
+
+            value += weights.get(key) * (bid.getStat(key) - min)/(max - min);
         }
 
         return value;
