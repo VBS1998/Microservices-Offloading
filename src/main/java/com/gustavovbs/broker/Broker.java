@@ -25,31 +25,26 @@ public class Broker {
         for (URI host : hosts){
             if(host.compareTo(auction.getHost()) != 0){ //The auction host should not make a bid
 
-//                //Set timeout for 2 seconds
-//                final Duration timeout = Duration.ofSeconds(2);
-//                ExecutorService executor = Executors.newSingleThreadExecutor();
-//
-//                final Future<Bid> handler = executor.submit(new Callable() {
-//                    @Override
-//                    public Bid call() throws Exception {
-//                        // Posts for the host to get a bid
-//                        return rest.postForEntity(host + "/bid", auction, Bid.class).getBody();
-//                    }
-//                });
-//
-//                try {
-//                    //Uses the bid in the auction
-//                    auction.bid(handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS));
-//                } catch (Exception e) {
-//                    handler.cancel(true);
-//                }
+                //Set timeout for 2 seconds
+                final Duration timeout = Duration.ofSeconds(2);
+                ExecutorService executor = Executors.newSingleThreadExecutor();
 
-//                executor.shutdownNow();
+                final Future<Bid> handler = executor.submit(new Callable() {
+                    @Override
+                    public Bid call() throws Exception {
+                        // Posts for the host to get a bid
+                        return rest.postForEntity(host + "/bid", auction, Bid.class).getBody();
+                    }
+                });
 
-                Bid bid = rest.postForEntity(host + "/bid", auction, Bid.class).getBody();
-                if(bid != null){
-                    auction.bid(bid);
+                try {
+                    //Uses the bid in the auction
+                    auction.bid(handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS));
+                } catch (Exception e) {
+                    handler.cancel(true);
                 }
+
+                executor.shutdownNow();
             }
         }
         //After the auction has ended
