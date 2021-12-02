@@ -40,9 +40,9 @@ public class Auction {
     public void bid(Bid bid){
         double bidValue = valueForBid(bid);
         if (winner == null || bidValue > valueForBid(winner)){
-            //if(bidValue >= 0.6){
+            if(bidValue >= 0.6){
                 winner = bid;
-            //}
+            }
         }
     }
 
