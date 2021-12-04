@@ -10,6 +10,7 @@ public class MatrixController {
 
     public class DefBody implements Serializable {
         public int seed, size;
+        public DefBody(){};
         public DefBody(int seed, int size){
             this.seed = seed;
             this.size = size;
