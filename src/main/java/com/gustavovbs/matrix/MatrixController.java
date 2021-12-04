@@ -27,7 +27,17 @@ public class MatrixController {
 
     @PostMapping("/default")
     public String def(@RequestBody DefBody body){
-        return matrix.def(body.seed, body.size).toString();
+        Double[][] res = matrix.def(body.seed, body.size);
+        String ret = "";
+
+        for(int i = 0; i < body.size; i++){
+            for(int j = 0; j < body.size; j++){
+                ret += res[i][j] + " ";
+            }
+            ret += "\n";
+        }
+
+        return ret;
     }
 
 }
