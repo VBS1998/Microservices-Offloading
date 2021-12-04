@@ -8,7 +8,7 @@ import java.io.Serializable;
 @RequestMapping("/matrix")
 public class MatrixController {
 
-    public class DefBody implements Serializable {
+    public static class DefBody implements Serializable {
         public int seed, size;
         public DefBody(){};
         public int getSeed() { return seed; }
