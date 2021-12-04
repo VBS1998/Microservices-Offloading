@@ -1,7 +1,6 @@
 package com.gustavovbs.broker;
 
 import com.gustavovbs.microservicesoffloading.Auction;
-import com.gustavovbs.microservicesoffloading.MicroservicesOffloadingController;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;

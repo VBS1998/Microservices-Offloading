@@ -27,7 +27,7 @@ public class Host {
         }
 
         // Runs the microservice and returns its message (xxx is running) together with the url for his host
-        return new RestTemplate().getForEntity(serviceURL + "/run/" + microserviceName + "/", String.class) + " on host " + url;
+        return new RestTemplate().getForEntity(serviceURL + "/run/" + microserviceName + "/", String.class).getBody() + " on host " + url;
     }
 
     public String broadcast(String microserviceName){

@@ -2,7 +2,6 @@ package com.gustavovbs.broker;
 
 import com.gustavovbs.microservicesoffloading.Auction;
 import com.gustavovbs.microservicesoffloading.Bid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -24,7 +23,7 @@ public class Broker {
     public String broadcast(Auction auction){
         RestTemplate rest = new RestTemplate();
         for (URI host : hosts){
-            if(host.compareTo(auction.getHost()) == 0){ //The auction host should not make a bid
+            if(host.compareTo(auction.getHost()) != 0){ //The auction host should not make a bid
 
                 //Set timeout for 2 seconds
                 final Duration timeout = Duration.ofSeconds(2);
@@ -49,8 +48,15 @@ public class Broker {
             }
         }
         //After the auction has ended
-        URI winner = auction.close().getHost();
-        return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
+        Bid winnerBid = auction.close();
+
+        if(winnerBid != null) {
+            URI winner = winnerBid.getHost();
+            return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
+        }
+        else{
+            return "Auction for " + auction.getMicroserviceName() + " failed.";
+        }
     }
 
     public void addHost(URI host){

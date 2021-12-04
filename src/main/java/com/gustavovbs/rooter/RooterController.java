@@ -15,7 +15,7 @@ public class RooterController {
     }
 
     @PostMapping("/sqrt")
-    public Double sqrt(@RequestBody double x){
+    public Double sqrt(@RequestBody Double x){
         return rooter.root(x);
     }
 
