@@ -15,6 +15,7 @@ public class Matrix {
             for(int j = 0; j < size; j++){
                 a[i][j] = r.nextDouble() * r.nextInt();
                 b[i][j] = r.nextDouble() * r.nextInt();
+                c[i][j] = 0.0;
             }
         }
 
