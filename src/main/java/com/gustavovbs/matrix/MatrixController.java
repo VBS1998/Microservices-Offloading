@@ -28,7 +28,7 @@ public class MatrixController {
         return "Matrix is running";
     }
 
-    @GetMapping("/default")
+    @PostMapping("/default")
     public String def(@RequestBody DefBody body){
         return matrix.def(body.seed, body.size).toString();
     }
