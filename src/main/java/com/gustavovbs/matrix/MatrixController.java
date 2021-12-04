@@ -25,7 +25,7 @@ public class MatrixController {
     @GetMapping("/")
     public String runRooter(){
         matrix = new Matrix();
-        return "Rooter is running";
+        return "Matrix is running";
     }
 
     @GetMapping("/default")
