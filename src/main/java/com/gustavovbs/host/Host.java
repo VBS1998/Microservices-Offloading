@@ -35,7 +35,7 @@ public class Host {
         return new RestTemplate().postForEntity(broker + "/broadcast", auction, String.class).getBody();
     }
 
-    public Bid bid(Auction auction){
+    public Bid bid(){
         return new Bid(url);
     }
 }

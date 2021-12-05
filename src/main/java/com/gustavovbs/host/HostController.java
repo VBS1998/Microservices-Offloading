@@ -40,9 +40,9 @@ public class HostController {
         return host.run(microservice);
     }
 
-    @PostMapping(value = "/bid")
-    public Bid bid(@RequestBody Auction auction){
-        return host.bid(auction);
+    @GetMapping(value = "/bid")
+    public Bid bid(){
+        return host.bid();
     }
 
     @GetMapping("/broadcast/{microserviceName}")
