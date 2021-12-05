@@ -52,7 +52,7 @@ public class Broker {
 
         if(winnerBid != null) {
             URI winner = winnerBid.getHost();
-            return rest.postForEntity(winner + "/run", auction.getMicroserviceName(), String.class).getBody();
+            return rest.getForEntity(winner + "/run/" + auction.getMicroserviceName(), String.class).getBody();
         }
         else{
             return "Auction for " + auction.getMicroserviceName() + " failed.";
