@@ -33,7 +33,7 @@ public class Broker {
                     @Override
                     public Bid call() throws Exception {
                         // Posts for the host to get a bid
-                        return rest.postForEntity(host + "/bid", auction, Bid.class).getBody();
+                        return rest.getForEntity(host + "/bid", Bid.class).getBody();
                     }
                 });
 
