@@ -21,7 +21,8 @@ public class Host {
     public String run(String microserviceName) {
         URI serviceURL = null;
         try{
-            serviceURL = new URI(url.toString().substring(0, url.toString().lastIndexOf('/')));
+            String service = url.toString().substring(0, url.toString().lastIndexOf('/'));
+            serviceURL = new URI("http://localhost" + service.substring(service.lastIndexOf(":"))); //Using localhost in case theres no loopback
         } catch(Exception e){
             return "Failed at finding URL";
         }
