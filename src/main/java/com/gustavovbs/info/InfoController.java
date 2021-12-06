@@ -23,8 +23,8 @@ public class InfoController {
         return "Rooter is running";
     }
 
-    @GetMapping("/nums")
-    public Double[] nums(){
-        return info.nums();
+    @GetMapping("/long_string")
+    public String long_string(){
+        return info.long_strings();
     }
 }
