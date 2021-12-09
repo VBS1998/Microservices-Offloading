@@ -29,7 +29,7 @@ public class Auction {
             HashMap<String, Object> file;
             file = new ObjectMapper().readValue(new File(directory.substring(0, directory.length() - 1) + "src/main/java/com/gustavovbs/microservicesoffloading/weights.json"), HashMap.class);
 
-            weights = (HashMap) file.get("rooter");
+            weights = (HashMap) file.get(microserviceName);
             min_max = (HashMap) file.get("min_max");
 
         } catch (Exception e){
