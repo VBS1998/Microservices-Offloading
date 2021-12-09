@@ -20,7 +20,7 @@ public class InfoController {
     @GetMapping("/")
     public String runInfo(){
         info = new Info();
-        return "Rooter is running";
+        return "Info is running";
     }
 
     @GetMapping("/long_string")
